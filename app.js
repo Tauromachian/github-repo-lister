@@ -12,7 +12,7 @@ const app = express();
 app.use(logger("dev"));
 app.use(router);
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "www.jose-garcia.net");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
 });
 
