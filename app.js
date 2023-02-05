@@ -1,20 +1,28 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const logger = require("morgan");
+const router = express.Router();
+const axios = require("axios");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
-
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+router.get("/", function (req, res, next) {
+  const token = process.env.GITHUB_TOKEN;
+
+  axios
+    .get("https://api.github.com/users/tauromachian/repos", {
+      headers: {
+        authorization: `token ${token}`,
+      },
+    })
+    .then((response) => {
+      res.json(response.data);
+    });
+});
+
+app.use(router);
 
 module.exports = app;
