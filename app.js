@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const router = express.Router();
 const axios = require("axios");
+const cors = require("cors");
 
 if (process.env.APP_ENV !== "production") {
   require("dotenv").config();
@@ -11,10 +12,7 @@ const app = express();
 
 app.use(logger("dev"));
 app.use(router);
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-});
+app.use(cors());
 
 router.get("/", function (req, res, next) {
   const token = process.env.GITHUB_TOKEN;
