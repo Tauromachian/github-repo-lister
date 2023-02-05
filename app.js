@@ -11,8 +11,8 @@ if (process.env.APP_ENV !== "production") {
 const app = express();
 
 app.use(logger("dev"));
-app.use(router);
 app.use(cors());
+app.use(router);
 
 router.get("/", function (req, res, next) {
   const token = process.env.GITHUB_TOKEN;
