@@ -3,6 +3,10 @@ const logger = require("morgan");
 const router = express.Router();
 const axios = require("axios");
 
+if (process.env.APP_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const app = express();
 
 app.use(logger("dev"));
