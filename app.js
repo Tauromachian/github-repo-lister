@@ -10,8 +10,7 @@ if (process.env.APP_ENV !== "production") {
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(router);
 
 router.get("/", function (req, res, next) {
   const token = process.env.GITHUB_TOKEN;
@@ -26,7 +25,5 @@ router.get("/", function (req, res, next) {
       res.json(response.data);
     });
 });
-
-app.use(router);
 
 module.exports = app;
